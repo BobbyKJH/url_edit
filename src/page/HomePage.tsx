@@ -35,10 +35,6 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const editDisabled = !url.includes("?")
-
-  const openDisabled = url.includes("?")
-
   return (
     <HomaPagePaper elevation={3}>
       <form defaultValue={url} onSubmit={url.includes("?") ? handleUrlEdit : handleLink}>
