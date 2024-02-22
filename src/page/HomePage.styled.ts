@@ -18,4 +18,4 @@ export const HomePageButtonGroup = styled.div`
   margin: 0 auto;
   justify-content: space-between;
   width: 450px;
-`
+`;
