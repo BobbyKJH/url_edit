@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 /** Style */
 import { Button, TextField } from "@mui/material";
-import { HomaPagePaper } from "@/page/HomePage.styled"
+import { HomaPagePaper, HomePageButtonGroup } from "@/page/HomePage.styled";
 
 const HomePage: React.FC = () => {
   const [url, setUrl] = useState("");
@@ -11,20 +11,29 @@ const HomePage: React.FC = () => {
     setUrl(value);
   };
 
+  /** URL Includes 조건 */
+  const urlEdit = (string: string) => {
+    return url.includes(string);
+  }
+
   /** URL Query 제거 기능 */
   const handleUrlEdit = (event: React.FormEvent) => {
     event.preventDefault();
-    if(url.includes("?")){
+    if(urlEdit("?")){
       setUrl(url.substring(0, url.indexOf("?", 0)))
-    } else {
+    }
+    if(urlEdit("#")){
+      setUrl(url.substring(0, url.indexOf("#", 0)))
+    }
+    if(!urlEdit("#") && !urlEdit("?")) {
       alert("query가 존재하지 않습니다.")
     }
   }
 
   const handleLink = (event: React.FormEvent) => {
     event.preventDefault();
-    if(!url.includes("?")){
-      /** URL Query 복사 기능 */
+    if(!urlEdit("?")){
+      /** URL Query 제거 후 복사 기능 */
       window.navigator.clipboard.writeText(url)
       /** URL OPEN */
       setTimeout(() => {
@@ -44,8 +53,11 @@ const HomePage: React.FC = () => {
           sx={{ width: "500px" }}
         />
 
-        <Button type={url.includes("?") ? "submit" : "button"} onClick={handleUrlEdit}>Edit</Button>
-        <Button type={!url.includes("?") ? "button" : "button"} onClick={handleLink}>OPEN</Button>
+        <HomePageButtonGroup>
+          <Button type={urlEdit("?") || urlEdit("#") ? "submit" : "button"} onClick={handleUrlEdit}>Edit</Button>
+          <Button type={!urlEdit("?") || !urlEdit("#") ? "button" : "button"} onClick={handleLink}>OPEN</Button>
+        </HomePageButtonGroup>
+
       </form>
     </HomaPagePaper>
   )
