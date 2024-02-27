@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
         />
 
         <HomePageButtonGroup>
-          <Button type={urlEdit("?") || urlEdit("#") ? "submit" : "button"} onClick={handleUrlEdit}>Edit</Button>
+          <Button type={urlEdit("?") || urlEdit("#") ? "submit" : "button"} variant="contained" onClick={handleUrlEdit}>Edit</Button>
           <Button type={!urlEdit("?") || !urlEdit("#") ? "button" : "button"} onClick={handleLink}>OPEN</Button>
         </HomePageButtonGroup>
 
