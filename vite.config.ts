@@ -13,6 +13,7 @@ export default defineConfig({
       { find: "@style", replacement: "/src/style" },
       { find: "@libs", replacement: "/src/libs" },
       { find: "@components", replacement: "/src/components" },
+      { find: "@atom", replacement: "/src/atom" },
     ],
   },
 })

@@ -29,6 +29,7 @@
       "@style/*": ["src/style/*"],
       "@libs/*": ["src/libs/*"],
       "@components/*": ["src/components/*"],
+      "@atom/*": ["src/atom/*"],
     }
   },
   "include": ["src", "**/*.ts", "**/*.tsx"],
