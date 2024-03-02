@@ -1,8 +1,11 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-
+/** Components */
 import App from '@/App.tsx'
+/** Atom */
+import { RecoilRoot } from 'recoil'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <App />
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>
 )
