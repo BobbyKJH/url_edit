@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+/** Libs */
+import urlEdit from "@/libs/urlEdit";
 /** Style */
-import { Button, TextField } from "@mui/material";
-import { HomaPagePaper, HomePageButtonGroup } from "@/page/HomePage.styled";
+import { TextField } from "@mui/material";
+import { HomaPagePaper, HomePageButtonGroup, HomePageUrlButton } from "@/page/HomePage.styled";
 
 const HomePage: React.FC = () => {
   const [url, setUrl] = useState("");
@@ -11,41 +13,38 @@ const HomePage: React.FC = () => {
     setUrl(value);
   };
 
-  /** URL Includes 조건 */
-  const urlEdit = (string: string) => {
-    return url.includes(string);
-  }
-
   /** URL Query 제거 기능 */
   const handleUrlEdit = (event: React.FormEvent) => {
     event.preventDefault();
-    if(urlEdit("?")){
+    if(urlEdit(url, "?")){
       setUrl(url.substring(0, url.indexOf("?", 0)))
-    }
-    if(urlEdit("#")){
+    };
+    if(urlEdit(url, "#")){
       setUrl(url.substring(0, url.indexOf("#", 0)))
-    }
-    if(!urlEdit("#") && !urlEdit("?")) {
+    };
+    if(!urlEdit(url, "#") && !urlEdit(url, "?")) {
       alert("query가 존재하지 않습니다.")
-    }
-  }
+    };
+  };
 
   const handleLink = (event: React.FormEvent) => {
     event.preventDefault();
-    if(!urlEdit("?")){
+    if(!urlEdit(url, "?")){
       /** URL Query 제거 후 복사 기능 */
       window.navigator.clipboard.writeText(url)
       /** URL OPEN */
       setTimeout(() => {
         window.open(url);
-      }, 0)
+      }, 0);
     } else {
       alert("Query를 제거해주시기 바랍니다.")
-    }
+    };
   };
 
   return (
-    <HomaPagePaper elevation={3}>
+    <HomaPagePaper maxWidth="lg">
+      <h1>URL Query 제거</h1>
+
       <form defaultValue={url} onSubmit={url.includes("?") ? handleUrlEdit : handleLink}>
         <TextField
           value={url}
@@ -54,12 +53,26 @@ const HomePage: React.FC = () => {
         />
 
         <HomePageButtonGroup>
-          <Button type={urlEdit("?") || urlEdit("#") ? "submit" : "button"} variant="contained" onClick={handleUrlEdit}>Edit</Button>
-          <Button type={!urlEdit("?") || !urlEdit("#") ? "button" : "button"} onClick={handleLink}>OPEN</Button>
+          <HomePageUrlButton 
+            type={urlEdit(url, "?") || urlEdit(url, "#") ? "submit" : "button"} 
+            variant="contained" 
+            onClick={handleUrlEdit}
+            disabled={!urlEdit(url, "?")}
+          >
+            수정
+          </HomePageUrlButton>
+          <HomePageUrlButton 
+            type={!urlEdit(url, "?") || !urlEdit(url, "#") ? "submit" : "button"}
+            variant="contained"
+            color="success"
+            onClick={handleLink}
+            disabled={urlEdit(url, "?")}
+          >
+            열기
+          </HomePageUrlButton>
         </HomePageButtonGroup>
-
       </form>
-    </HomaPagePaper>
+          </HomaPagePaper>
   )
 };
 
