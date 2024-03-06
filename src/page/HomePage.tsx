@@ -7,7 +7,7 @@ import { HomaPagePaper, HomePageButtonGroup, HomePageUrlButton } from "@/page/Ho
 
 const HomePage: React.FC = () => {
   const [url, setUrl] = useState("");
-
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
     setUrl(value);
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
   return (
     <HomaPagePaper maxWidth="lg">
       <h1>URL Query 제거</h1>
-
+      
       <form defaultValue={url} onSubmit={url.includes("?") ? handleUrlEdit : handleLink}>
         <TextField
           value={url}
@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
             type={urlEdit(url, "?") || urlEdit(url, "#") ? "submit" : "button"} 
             variant="contained" 
             onClick={handleUrlEdit}
-            disabled={!urlEdit(url, "?")}
+            disabled={!urlEdit(url, "?") && !urlEdit(url, "#")}
           >
             수정
           </HomePageUrlButton>
@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
             variant="contained"
             color="success"
             onClick={handleLink}
-            disabled={urlEdit(url, "?")}
+            disabled={urlEdit(url, "?") || urlEdit(url, "#")}
           >
             열기
           </HomePageUrlButton>
