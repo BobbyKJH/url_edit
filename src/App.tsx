@@ -4,15 +4,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "@/page/HomePage";
 /** Style */
 import { StyledEngineProvider } from "@mui/styled-engine";
+import { Provider } from "jotai";
 
 const App: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage/>}/>
-        </Routes>
-      </BrowserRouter>
+      <Provider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage/>}/>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </StyledEngineProvider>
   )
 };
