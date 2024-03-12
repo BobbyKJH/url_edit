@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+/** Jotai */
+import { Provider } from "jotai";
 /** Page */
 import HomePage from "@/page/HomePage";
+import BrandPage from "@/page/BrandPage";
 /** Style */
 import { StyledEngineProvider } from "@mui/styled-engine";
-import { Provider } from "jotai";
 
 const App: React.FC = () => {
   return (
@@ -13,6 +15,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage/>}/>
+            <Route path="/brand" element={<BrandPage/>}/>
           </Routes>
         </BrowserRouter>
       </Provider>
