@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+/** Jotai */
+import { useSetAtom } from "jotai";
+import { SnackAtom, severityEnum } from "@/atom/SnackAtom";
+/** Component */
+import Snack from "@/components/common/Snack";
 /** Libs */
 import urlEdit from "@/libs/urlEdit";
 /** Style */
@@ -7,6 +12,7 @@ import { HomaPagePaper, HomePageButtonGroup, HomePageUrlButton } from "@/page/Ho
 
 const HomePage: React.FC = () => {
   const [url, setUrl] = useState("");
+  const setSnack = useSetAtom(SnackAtom);
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
@@ -17,28 +23,51 @@ const HomePage: React.FC = () => {
   const handleUrlEdit = (event: React.FormEvent) => {
     event.preventDefault();
     if(urlEdit(url, "?")){
-      setUrl(url.substring(0, url.indexOf("?", 0)))
-    };
+      setUrl(url.substring(0, url.indexOf("?", 0)));
+      setSnack({
+        state: true,
+        severity: severityEnum.SUCCESS,
+        message: "Query 제거를 성공하였습니다."
+      });
+    }
     if(urlEdit(url, "#")){
-      setUrl(url.substring(0, url.indexOf("#", 0)))
-    };
+      setUrl(url.substring(0, url.indexOf("#", 0)));
+      setSnack({
+        state: true,
+        severity: severityEnum.SUCCESS,
+        message: "Query 제거를 성공하였습니다."
+      });
+    }
     if(!urlEdit(url, "#") && !urlEdit(url, "?")) {
-      alert("query가 존재하지 않습니다.")
-    };
+      setSnack({
+        state: true,
+        severity: severityEnum.ERROR,
+        message: "Query가 존재하지 않습니다."
+      });
+    }
   };
 
   const handleLink = (event: React.FormEvent) => {
     event.preventDefault();
-    if(!urlEdit(url, "?")){
+    if(!urlEdit(url, "?") && !urlEdit(url, "#")){
       /** URL Query 제거 후 복사 기능 */
       window.navigator.clipboard.writeText(url)
+      setSnack({
+        state: true,
+        severity: severityEnum.SUCCESS,
+        message: "URL 복사에 성공하였습니다."
+      });
       /** URL OPEN */
       setTimeout(() => {
         window.open(url);
       }, 0);
     } else {
-      alert("Query를 제거해주시기 바랍니다.")
-    };
+      setSnack({
+        state: true,
+        severity: severityEnum.ERROR,
+        message: "Query를 제거해주시기 바랍니다."
+      });
+    }
   };
 
   return (
@@ -66,13 +95,14 @@ const HomePage: React.FC = () => {
             variant="contained"
             color="success"
             onClick={handleLink}
-            disabled={urlEdit(url, "?") || urlEdit(url, "#")}
+            disabled={urlEdit(url, "?") || urlEdit(url, "#") || url === ""}
           >
             열기
           </HomePageUrlButton>
         </HomePageButtonGroup>
       </form>
-          </HomaPagePaper>
+      <Snack/>
+    </HomaPagePaper>
   )
 };
 
