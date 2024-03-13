@@ -8,6 +8,7 @@ import BrandPage from "@/page/BrandPage";
 /** Style */
 import ResetStyle from "@/App.styled";
 import { StyledEngineProvider } from "@mui/styled-engine";
+import Header from "@/components/common/Header";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <ResetStyle/>
       <Provider>
         <BrowserRouter>
+          <Header/>
           <Routes>
             <Route path="/" element={<HomePage/>}/>
             <Route path="/brand" element={<BrandPage/>}/>
