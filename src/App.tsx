@@ -6,11 +6,13 @@ import { Provider } from "jotai";
 import HomePage from "@/page/HomePage";
 import BrandPage from "@/page/BrandPage";
 /** Style */
+import ResetStyle from "@/App.styled";
 import { StyledEngineProvider } from "@mui/styled-engine";
 
 const App: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
+      <ResetStyle/>
       <Provider>
         <BrowserRouter>
           <Routes>
