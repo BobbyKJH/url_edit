@@ -1,18 +1,16 @@
 import React from "react";
-/** Style */
-import { TextField } from "@mui/material";
 
 interface Props{
-  input: string;
+  value: string;
   handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const TextInput: React.FC<Props> = ({input, handleInput}) => {
+const TextInput: React.FC<Props> = ({value, handleInput}) => {
   return (
-    <TextField
-      value={input}
+    <input
+      value={value}
       onChange={handleInput}
-      sx={{ width: "500px" }}
+      className="border-2 p-3 w-full rounded border-black my-4 font-medium"
     />
   )
 };
