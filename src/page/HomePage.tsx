@@ -4,11 +4,9 @@ import { useSetAtom } from "jotai";
 import { SnackAtom, severityEnum } from "@/atom/SnackAtom";
 /** Component */
 import Snack from "@/components/common/Snack";
+import TextInput from "@/components/common/TextInput";
 /** Libs */
 import urlEdit from "@/libs/urlEdit";
-/** Style */
-import { TextField } from "@mui/material";
-import { HomaPagePaper, HomePageButtonGroup, HomePageUrlButton } from "@/page/HomePage.styled";
 
 const HomePage: React.FC = () => {
   const [url, setUrl] = useState("");
@@ -71,38 +69,31 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <HomaPagePaper maxWidth="lg">
-      <h1>URL Query 제거</h1>
+    <div className="p-4">
+      <h1 className="text-3xl my-5 uppercase">URL Query 제거</h1>
       
       <form defaultValue={url} onSubmit={url.includes("?") ? handleUrlEdit : handleLink}>
-        <TextField
-          value={url}
-          onChange={handleChange}
-          sx={{ width: "500px" }}
-        />
+        <TextInput value={url} handleInput={handleChange}/>
 
-        <HomePageButtonGroup>
-          <HomePageUrlButton 
-            type={urlEdit(url, "?") || urlEdit(url, "#") ? "submit" : "button"} 
-            variant="contained" 
-            onClick={handleUrlEdit}
-            disabled={!urlEdit(url, "?") && !urlEdit(url, "#")}
-          >
-            수정
-          </HomePageUrlButton>
-          <HomePageUrlButton 
-            type={!urlEdit(url, "?") || !urlEdit(url, "#") ? "submit" : "button"}
-            variant="contained"
-            color="success"
-            onClick={handleLink}
-            disabled={urlEdit(url, "?") || urlEdit(url, "#") || url === ""}
-          >
-            열기
-          </HomePageUrlButton>
-        </HomePageButtonGroup>
+        <button 
+          type={urlEdit(url, "?") || urlEdit(url, "#") ? "submit" : "button"} 
+          onClick={handleUrlEdit}
+          disabled={!urlEdit(url, "?") && !urlEdit(url, "#")}
+          className="w-6/12 absolute bottom-0 left-0 p-5 cursor-pointer bg-lime-400 border-r-2 border-black text-white"
+        >
+          수정
+        </button>
+        <button 
+          type={!urlEdit(url, "?") || !urlEdit(url, "#") ? "submit" : "button"}
+          onClick={handleLink}
+          disabled={urlEdit(url, "?") || urlEdit(url, "#") || url === ""}
+          className="w-6/12 absolute bottom-0 right-0 p-5 cursor-pointer bg-lime-400 text-white border-l-2 border-black"
+        >
+          열기
+        </button>
       </form>
-      <Snack/>
-    </HomaPagePaper>
+      <Snack />
+    </div>
   )
 };
 
