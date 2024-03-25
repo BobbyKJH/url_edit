@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 /** Jotai */
 import { Provider } from "jotai";
 /** Component */
-import Header from "@/components/common/Header";
+import Header from "@/components/header/Header";
 /** Page */
 import HomePage from "@/page/HomePage";
 import BrandPage from "@/page/BrandPage";
