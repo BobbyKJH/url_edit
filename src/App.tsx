@@ -6,6 +6,7 @@ import { Provider } from "jotai";
 import Header from "@/components/header/Header";
 /** Page */
 import HomePage from "@/page/HomePage";
+import QueryPage from "@/page/QueryPage";
 import BrandPage from "@/page/BrandPage";
 /** Style */
 import "@/App.css";
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Header/>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
+          <Route path="/query" element={<QueryPage/>}/>
           <Route path="/brand" element={<BrandPage/>}/>
         </Routes>
       </BrowserRouter>
